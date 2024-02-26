@@ -1,4 +1,4 @@
-package ch.mabaka.manualtestmanager;
+package ch.mabaka.manualtestmanager.persistence;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
