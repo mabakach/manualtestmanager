@@ -5,29 +5,35 @@ package ch.mabaka.manualtestmanager.persistence;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Version;
 
 /**
- *  Abstract base class for all entities.
+ * Abstract base class for all entities.
  */
 @MappedSuperclass
 public abstract class AbstractEntity {
-	
+
 	@Id
-    @GeneratedValue
-    public Long sysid;
-	
+	@GeneratedValue
+	public Long sysid;
+
 	public String sysInsertedBy;
-	
+
 	public String sysUpdatedBy;
-	
+
+	@CreationTimestamp(source = SourceType.DB)
 	public Date sysinsertts;
-	
+
+	@UpdateTimestamp(source = SourceType.DB)
 	public Date sysupdatets;
-	
+
 	@Version
 	public Long sysVersion;
 
