@@ -13,11 +13,13 @@ import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 /**
  * 
  */
 @Entity
+@Table(schema="public", name="user")
 @UserDefinition
 public class UserEntity extends AbstractEntity {
 

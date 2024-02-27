@@ -3,6 +3,8 @@
  */
 package ch.mabaka.manualtestmanager.persistence;
 
+import java.util.Date;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -21,6 +23,10 @@ public abstract class AbstractEntity {
 	public String sysInsertedBy;
 	
 	public String sysUpdatedBy;
+	
+	public Date sysinsertts;
+	
+	public Date sysupdatets;
 	
 	@Version
 	public Long sysVersion;
@@ -61,4 +67,19 @@ public abstract class AbstractEntity {
 		this.sysVersion = sysVersion;
 	}
 
+	public Date getSysinsertts() {
+		return sysinsertts;
+	}
+
+	public void setSysinsertts(Date sysinsertts) {
+		this.sysinsertts = sysinsertts;
+	}
+
+	public Date getSysupdatets() {
+		return sysupdatets;
+	}
+
+	public void setSysupdatets(Date sysupdatets) {
+		this.sysupdatets = sysupdatets;
+	}
 }

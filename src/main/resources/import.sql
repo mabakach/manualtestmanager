@@ -1,6 +1,7 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(1, 'field-1');
--- insert into myentity (id, field) values(2, 'field-2');
--- insert into myentity (id, field) values(3, 'field-3');
--- alter sequence myentity_seq restart with 4;
+insert into public.role (sysid, sysinsertedby, sysupdatedby, sysinsertts, sysupdatets, sysversion, role) values (1, 'setup', 'setup', current_timestamp, current_timestamp, 1, 'admin');
+alter sequence public.role_seq restart with 2;
+
+insert into public.user (sysid, sysinsertedby, sysupdatedby, sysinsertts, sysupdatets, sysversion, username, password) values (1, 'setup', 'setup', current_timestamp, current_timestamp, 1, 'admin', '$2a$10$i1i9rzVJN08KMJNuOWpuo.tMe7cOSMtMyhF55m9plzKXtj/E6dhoS');
+alter sequence public.user_seq restart with 2;
+
+insert into public.user_role(users_sysid, roles_sysid) values (1,1);

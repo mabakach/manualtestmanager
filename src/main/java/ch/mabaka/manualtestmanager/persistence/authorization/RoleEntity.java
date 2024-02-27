@@ -9,11 +9,13 @@ import ch.mabaka.manualtestmanager.persistence.AbstractEntity;
 import io.quarkus.security.jpa.RolesValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 /**
  * 
  */
 @Entity
+@Table(schema="public", name="role")
 public class RoleEntity extends AbstractEntity {
 
     @ManyToMany(mappedBy = "roles")
@@ -22,11 +24,7 @@ public class RoleEntity extends AbstractEntity {
     @RolesValue
     private String role;
 	
-	/**
-	 * 
-	 */
 	public RoleEntity() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public List<UserEntity> getUsers() {
@@ -44,7 +42,4 @@ public class RoleEntity extends AbstractEntity {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	
-	
 }

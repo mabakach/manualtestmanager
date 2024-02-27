@@ -7,14 +7,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/hello")
-public class HelloResource {
+@Path("/secure")
+public class SecureResource {
 
     @GET
-    @PermitAll
+    @RolesAllowed("admin")
     @Produces(MediaType.TEXT_PLAIN)
     
     public String hello() {
-        return "hello";
+        return "secure";
     }
 }
