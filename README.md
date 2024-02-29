@@ -1,4 +1,7 @@
-# server
+# Manual Test Manager Server
+
+## About
+Manual Test Manager is a simple web application to store and document manual tests of arbitrary products.
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
@@ -53,13 +56,3 @@ If you want to learn more about building native executables, please consult http
 - Hibernate Validator ([guide](https://quarkus.io/guides/validation)): Validate object properties (field, getter) and method parameters for your beans (REST, CDI, Jakarta Persistence)
 - PrimeFaces ([guide](https://quarkiverse.github.io/quarkiverse-docs/quarkus-primefaces/dev/)): PrimeFaces - is the ultimate component suite for JavaServer Faces
 - JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
