@@ -15,6 +15,8 @@
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
 		<quarkus.platform.version>3.7.4</quarkus.platform.version>
+		<primefaces-quarkus.version>3.13.9</primefaces-quarkus.version>
+		<omnifaces-quarkus.version>4.3.0</omnifaces-quarkus.version>
 		<skipITs>true</skipITs>
 		<surefire-plugin.version>3.2.5</surefire-plugin.version>
 	</properties>
@@ -48,8 +50,13 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkiverse.primefaces</groupId>
-			<artifactId>quarkus-primefaces</artifactId>
-			<version>3.13.9</version>
+			<artifactId>quarkus-primefaces-extensions</artifactId>
+			<version>${primefaces-quarkus.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkiverse.omnifaces</groupId>
+			<artifactId>quarkus-omnifaces</artifactId>
+			<version>${omnifaces-quarkus.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
@@ -84,6 +91,30 @@
 							<goal>generate-code</goal>
 							<goal>generate-code-tests</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.github.cleydyr</groupId>
+				<artifactId>dart-sass-maven-plugin</artifactId>
+				<version>1.3.1</version>
+				<executions>
+					<execution>
+						<id>generate-css-using-sass</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compile-sass</goal>
+						</goals>
+						<configuration>
+							<inputFolder>
+								${basedir}/src/main/resources/META-INF/resources/resources/manualtestmanager/css</inputFolder>
+							<outputFolder>
+								${basedir}/src/main/resources/META-INF/resources/resources/manualtestmanager/css</outputFolder>
+							<update>true</update>
+							<noSourceMap>true</noSourceMap>
+							<style>COMPRESSED</style>
+							<quiet>false</quiet>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
