@@ -6,7 +6,7 @@
             <i class="pi pi-bars"></i>
         </a>
         <h:link styleClass="logo" outcome="/index.xhtml">
-            <p:graphicImage name="images/primefaces-logo.svg" library="manualtestmanager" />
+            <p:graphicImage name="#{app.darkMode ? 'images/manualtestmanager-logo-inverted.png' : 'images/manualtestmanager-logo.png'}" library="manualtestmanager" />
         </h:link>
         <p:outputPanel id="app-theme-logo" class="app-theme">
             <p:graphicImage id="app-theme-image" name="images/themes/#{app.themeImage}" library="manualtestmanager" />
