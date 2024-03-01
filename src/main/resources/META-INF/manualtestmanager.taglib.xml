@@ -6,13 +6,11 @@
 
     <namespace>https://www.mabaka.ch/manualtestmanager</namespace>
 
-    <!-- 
     <function>
         <function-name>getFilesContent</function-name>
-        <function-class>org.primefaces.showcase.util.ShowcaseUtil</function-class>
+        <function-class>ch.mabaka.manualtestmanager.view.util.NavigationUtil</function-class>
         <function-signature>java.util.List getFilesContent(java.lang.String,java.lang.Boolean))</function-signature>
     </function>
-     -->
 
     <tag>
         <tag-name>tabscode</tag-name>
