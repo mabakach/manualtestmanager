@@ -12,6 +12,10 @@
             <p:graphicImage id="app-theme-image" name="images/themes/#{app.themeImage}" library="manualtestmanager" />
             <p:tooltip for="app-theme-logo" value="#{app.theme}" position="bottom" showDelay="0" />
         </p:outputPanel>
+		<p:outputPanel id="loggedin-user" rendered="#{not empty request.remoteUser}">
+       		<span>#{request.remoteUser}</span>
+        </p:outputPanel>
+
 
         <h:form styleClass="topbar-form">
             <ul class="topbar-menu">
