@@ -8,10 +8,7 @@
         <h:link styleClass="logo" outcome="/index.xhtml">
             <p:graphicImage name="#{app.darkMode ? 'images/manualtestmanager-logo-inverted.png' : 'images/manualtestmanager-logo.png'}" library="manualtestmanager" />
         </h:link>
-        <p:outputPanel id="app-theme-logo" class="app-theme">
-            <p:graphicImage id="app-theme-image" name="images/themes/#{app.themeImage}" library="manualtestmanager" />
-            <p:tooltip for="app-theme-logo" value="#{app.theme}" position="bottom" showDelay="0" />
-        </p:outputPanel>
+
 		<p:outputPanel id="loggedin-user" rendered="#{not empty request.remoteUser}">
        		<span>#{request.remoteUser}</span>
         </p:outputPanel>
@@ -19,6 +16,12 @@
 
         <h:form styleClass="topbar-form">
             <ul class="topbar-menu">
+				<li class="topbar-submenu" rendered="#{not empty request.remoteUser}">
+                    <a tabindex="0">#{request.remoteUser}</a>
+                    <ul class="connected-overlay-in">
+                        <li><p:commandLink actionListener="#{app.logout}" oncomplete="window.location.reload();"><span>Logout</span></p:commandLink></li>
+                     </ul>
+                </li>
                 <li class="topbar-submenu">
                     <a tabindex="0">Themes</a>
                     <ul class="connected-overlay-in">
@@ -39,5 +42,9 @@
                 </li>
             </ul>
         </h:form>
+        <p:outputPanel id="app-theme-logo" class="app-theme">
+            <p:graphicImage id="app-theme-image" name="images/themes/#{app.themeImage}" library="manualtestmanager" />
+            <p:tooltip for="app-theme-logo" value="#{app.theme}" position="bottom" showDelay="0" />
+        </p:outputPanel>
     </div>
 </ui:composition>
