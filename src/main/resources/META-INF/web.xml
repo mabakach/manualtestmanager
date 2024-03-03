@@ -157,6 +157,16 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <filter>
+    	<filter-name>AuthorizationFilter</filter-name>
+    	<filter-class>ch.mabaka.manualtestmanager.filter.AuthorizationFilter</filter-class>
+    </filter>
+        <filter-mapping>
+        <filter-name>AuthorizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
 
     <!-- No Cache Filter -->
     <filter>
