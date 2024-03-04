@@ -27,72 +27,76 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import ch.mabaka.manualtestmanager.service.IdentityService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 @Named
-@ApplicationScoped
+@RequestScoped
 public class AppMenu {
 
-    List<MenuCategory> menuCategories;
-    List<MenuItem> menuItems;
+	@Inject
+	IdentityService identityService;
 
-    @PostConstruct
-    public void init() {
-        menuCategories = new ArrayList<>();
-        menuItems = new ArrayList<>();
+	List<MenuCategory> menuCategories;
+	List<MenuItem> menuItems;
 
-        //AJAX FRAMEWORK CATEGORY START
-        List<MenuItem> loginMenu = new ArrayList<>();
-        //loginMenu.add(new MenuItem("Login", "/view/login/login"));
-        loginMenu.add(new MenuItem("Introduction", "/view/ajax/basic"));
+	@PostConstruct
+	public void init() {
+		menuCategories = new ArrayList<>();
+		menuItems = new ArrayList<>();
 
-        menuCategories.add(new MenuCategory("Login", loginMenu));
-        //AJAX FRAMEWORK CATEGORY END
+		if (!identityService.isAnonymousUser()) {
+			List<MenuItem> basicsMenu = new ArrayList<>();
+			basicsMenu.add(new MenuItem("Introduction", "/view/ajax/basic"));
 
+			menuCategories.add(new MenuCategory("Basics", basicsMenu));
+		}
 
-        for (MenuCategory category : menuCategories) {
-            for (MenuItem menuItem : category.getMenuItems()) {
-                menuItem.setParentLabel(category.getLabel());
-                if (menuItem.getUrl() != null) {
-                    menuItems.add(menuItem);
-                }
-                if (menuItem.getMenuItems() != null) {
-                    for (MenuItem item : menuItem.getMenuItems()) {
-                        item.setParentLabel(menuItem.getLabel());
-                        if (item.getUrl() != null) {
-                            menuItems.add(item);
-                        }
-                    }
-                }
-            }
-        }
-    }
+		for (MenuCategory category : menuCategories) {
+			for (MenuItem menuItem : category.getMenuItems()) {
+				menuItem.setParentLabel(category.getLabel());
+				if (menuItem.getUrl() != null) {
+					menuItems.add(menuItem);
+				}
+				if (menuItem.getMenuItems() != null) {
+					for (MenuItem item : menuItem.getMenuItems()) {
+						item.setParentLabel(menuItem.getLabel());
+						if (item.getUrl() != null) {
+							menuItems.add(item);
+						}
+					}
+				}
+			}
+		}
+	}
 
-    public List<MenuItem> completeMenuItem(String query) {
-        String queryLowerCase = query.toLowerCase();
-        List<MenuItem> filteredItems = new ArrayList<>();
-        for (MenuItem item : menuItems) {
-            if (item.getUrl() != null && (item.getLabel().toLowerCase().contains(queryLowerCase) ||
-                        item.getParentLabel().toLowerCase().contains(queryLowerCase))) {
-                filteredItems.add(item);
-            }
-            if (item.getBadge() != null) {
-                if (item.getBadge().toLowerCase().contains(queryLowerCase)) {
-                    filteredItems.add(item);
-                }
-            }
-        }
-        filteredItems.sort(Comparator.comparing(MenuItem::getParentLabel));
-        return filteredItems;
-    }
+	public List<MenuItem> completeMenuItem(String query) {
+		String queryLowerCase = query.toLowerCase();
+		List<MenuItem> filteredItems = new ArrayList<>();
+		for (MenuItem item : menuItems) {
+			if (item.getUrl() != null && (item.getLabel().toLowerCase().contains(queryLowerCase)
+					|| item.getParentLabel().toLowerCase().contains(queryLowerCase))) {
+				filteredItems.add(item);
+			}
+			if (item.getBadge() != null) {
+				if (item.getBadge().toLowerCase().contains(queryLowerCase)) {
+					filteredItems.add(item);
+				}
+			}
+		}
+		filteredItems.sort(Comparator.comparing(MenuItem::getParentLabel));
+		return filteredItems;
+	}
 
-    public List<MenuItem> getMenuItems() {
-        return menuItems;
-    }
+	public List<MenuItem> getMenuItems() {
+		return menuItems;
+	}
 
-    public List<MenuCategory> getMenuCategories() {
-        return menuCategories;
-    }
+	public List<MenuCategory> getMenuCategories() {
+		return menuCategories;
+	}
 }

@@ -34,6 +34,7 @@
                             <h1><ui:insert name="title"></ui:insert></h1>
                             <p><ui:insert name="description"></ui:insert></p>
                         </div>
+                        <!-- 
                         <div class="feature-documentation">
                             <ui:fragment rendered="#{not empty documentationLink}">
                                 <a class="documentation-link" href="https://primefaces.github.io/primefaces/10_0_0/##{documentationLink}" target="_blank">
@@ -56,10 +57,12 @@
                                 </a>
                             </ui:fragment>
                         </div>
+                         -->
                     </div>
                     <div class="content-section implementation">
                         <ui:insert name="implementation"></ui:insert>
                     </div>
+                    <!-- 
                     <div class="content-section documentation">
                         <ui:insert name="static-documentation"/>
                         <ui:insert name="source">
@@ -69,6 +72,7 @@
                             </sc:tabscode>
                         </ui:insert>
                     </div>
+                     -->
                 </ui:insert>
                 <ui:include src="./footer.xhtml"></ui:include>
             </div>
