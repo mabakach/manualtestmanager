@@ -45,7 +45,7 @@ public class AppMenu {
 
         //AJAX FRAMEWORK CATEGORY START
         List<MenuItem> loginMenu = new ArrayList<>();
-        loginMenu.add(new MenuItem("Login", "/view/login/login"));
+        //loginMenu.add(new MenuItem("Login", "/view/login/login"));
         loginMenu.add(new MenuItem("Introduction", "/view/ajax/basic"));
 
         menuCategories.add(new MenuCategory("Login", loginMenu));

@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
+import ch.mabaka.manualtestmanager.service.IdentityService;
 import io.quarkus.security.runtime.SecurityIdentityAssociation;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -25,6 +26,9 @@ public class AuthorizationFilter implements Filter {
 	@Inject
 	SecurityIdentityAssociation identity;
 
+	@Inject
+	IdentityService identityService;
+	
 	@ConfigProperty(name = "quarkus.http.auth.form.login-page")
 	String loginPage;
 
@@ -36,11 +40,12 @@ public class AuthorizationFilter implements Filter {
 			throws IOException, ServletException {
 		final HttpServletRequest servletRequest = (HttpServletRequest) request;
 		final String requestURI = removeLeadingSlash(servletRequest.getRequestURI());
-		final boolean userIsAnoynous = identity == null || identity.getIdentity().getPrincipal() == null
-				|| identity.getIdentity().getPrincipal().getName() == null
-				|| identity.getIdentity().getPrincipal().getName().isEmpty();
+//		final boolean userIsAnonymous = identity == null || identity.getIdentity().getPrincipal() == null
+//				|| identity.getIdentity().getPrincipal().getName() == null
+//				|| identity.getIdentity().getPrincipal().getName().isEmpty();
+		final boolean userIsAnonymous = identityService.isAnonymousUser();
 
-		if (userIsAnoynous && (loginPage != null && !removeLeadingSlash(loginPage).equals(requestURI)
+		if (userIsAnonymous && (loginPage != null && !removeLeadingSlash(loginPage).equals(requestURI)
 				&& (requestURI.isEmpty() || requestURI.startsWith("view") && requestURI.endsWith("html")
 						|| requestURI.equals("index.xhtml")))) {
 			logger.info(String.format("Requested URI was %s, but user is not logged in -> forward to %s!", requestURI,
