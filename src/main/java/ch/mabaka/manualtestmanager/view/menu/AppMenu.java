@@ -54,6 +54,11 @@ public class AppMenu {
 			basicsMenu.add(new MenuItem("Introduction", "/view/ajax/basic"));
 
 			menuCategories.add(new MenuCategory("Basics", basicsMenu));
+		} else {
+//			List<MenuItem> loginMenu = new ArrayList<>();
+//			loginMenu.add(new MenuItem("Login", "/view/login/login"));
+//
+//			menuCategories.add(new MenuCategory("Login", loginMenu));
 		}
 
 		for (MenuCategory category : menuCategories) {

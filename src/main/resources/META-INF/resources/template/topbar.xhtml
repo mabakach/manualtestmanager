@@ -9,11 +9,6 @@
             <p:graphicImage name="#{app.darkMode ? 'images/manualtestmanager-logo-inverted.png' : 'images/manualtestmanager-logo.png'}" library="manualtestmanager" />
         </h:link>
 
-		<p:outputPanel id="loggedin-user" rendered="#{not empty request.remoteUser}">
-       		<span>#{request.remoteUser}</span>
-        </p:outputPanel>
-
-
         <h:form styleClass="topbar-form">
             <ul class="topbar-menu">
 				<li class="topbar-submenu" rendered="#{not empty request.remoteUser}">
