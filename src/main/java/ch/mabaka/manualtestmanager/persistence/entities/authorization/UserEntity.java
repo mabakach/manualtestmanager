@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ch.mabaka.manualtestmanager.persistence.authorization;
+package ch.mabaka.manualtestmanager.persistence.entities.authorization;
 
 import java.util.ArrayList;
 import java.util.List;

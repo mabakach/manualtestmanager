@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ch.mabaka.manualtestmanager.persistence.business;
+package ch.mabaka.manualtestmanager.persistence.entities.business;
 
 import java.util.List;
 
