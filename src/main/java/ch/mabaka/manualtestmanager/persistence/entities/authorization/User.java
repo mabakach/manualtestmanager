@@ -21,7 +21,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(schema="public", name="user")
 @UserDefinition
-public class UserEntity extends AbstractEntity {
+public class User extends AbstractEntity {
 
 	@Username
 	private String username;
@@ -31,9 +31,9 @@ public class UserEntity extends AbstractEntity {
 
 	@ManyToMany
     @Roles
-    private  List<RoleEntity> roles = new ArrayList<>();
+    private  List<Role> roles = new ArrayList<>();
 	
-	public UserEntity() {
+	public User() {
 	}
 
 	public String getUsername() {
@@ -52,11 +52,11 @@ public class UserEntity extends AbstractEntity {
 		this.password = password;
 	}
 
-	public List<RoleEntity> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(List<RoleEntity> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 }

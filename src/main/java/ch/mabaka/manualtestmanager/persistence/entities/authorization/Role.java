@@ -16,22 +16,22 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(schema="public", name="role")
-public class RoleEntity extends AbstractEntity {
+public class Role extends AbstractEntity {
 
     @ManyToMany(mappedBy = "roles")
-    private List<UserEntity> users;
+    private List<User> users;
 
     @RolesValue
     private String role;
 	
-	public RoleEntity() {
+	public Role() {
 	}
 
-	public List<UserEntity> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<UserEntity> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

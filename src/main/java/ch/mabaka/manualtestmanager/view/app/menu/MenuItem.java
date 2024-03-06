@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package ch.mabaka.manualtestmanager.view.menu;
+package ch.mabaka.manualtestmanager.view.app.menu;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,13 +30,27 @@ import java.util.Objects;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
-public class MenuCategory implements Serializable {
+public class MenuItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final String label;
+    private String url;
     private List<MenuItem> menuItems;
+    private String badge;
+    private String parentLabel;
 
-    public MenuCategory(String label, List<MenuItem> menuItems) {
+    public MenuItem(String label, String url) {
+        this.label = label;
+        this.url = url;
+    }
+
+    public MenuItem(String label, String url, String badge) {
+        this.label = label;
+        this.url = url;
+        this.badge = badge;
+    }
+
+    public MenuItem(String label, List<MenuItem> menuItems) {
         this.label = label;
         this.menuItems = menuItems;
     }
@@ -45,13 +59,29 @@ public class MenuCategory implements Serializable {
         return label;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public String getBadge() {
+        return badge;
+    }
+
     public List<MenuItem> getMenuItems() {
         return menuItems;
     }
 
+    public String getParentLabel() {
+        return parentLabel;
+    }
+
+    public void setParentLabel(String parentLabel) {
+        this.parentLabel = parentLabel;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(label);
+        return Objects.hash(label, url);
     }
 
     @Override
@@ -59,15 +89,15 @@ public class MenuCategory implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof MenuCategory)) {
+        if (!(obj instanceof MenuItem)) {
             return false;
         }
-        MenuCategory other = (MenuCategory) obj;
-        return Objects.equals(label, other.label);
+        MenuItem other = (MenuItem) obj;
+        return Objects.equals(label, other.label) && Objects.equals(url, other.url);
     }
 
     @Override
     public String toString() {
-        return "MenuCategory [label=" + label + "]";
+        return "MenuItem [label=" + label + ", url=" + url + "]";
     }
 }

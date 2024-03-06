@@ -6,12 +6,16 @@ package ch.mabaka.manualtestmanager.persistence.entities.business;
 import java.util.List;
 
 import ch.mabaka.manualtestmanager.persistence.AbstractEntity;
+import dev.morphia.annotations.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 /**
  * 
  */
+@Entity
+@Table(schema="public", name="test")
 public class Test extends AbstractEntity {
 	
 	@ManyToMany
