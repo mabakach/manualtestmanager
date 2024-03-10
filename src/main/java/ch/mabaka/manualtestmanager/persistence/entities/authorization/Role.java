@@ -8,8 +8,11 @@ import java.util.List;
 import ch.mabaka.manualtestmanager.persistence.AbstractEntity;
 import io.quarkus.security.jpa.RolesValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 
@@ -21,8 +24,10 @@ public class Role extends AbstractEntity {
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
 
-    @RolesValue
-    private String role;
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private RoleName roleName;
 	
 	public Role() {
 	}
@@ -35,11 +40,16 @@ public class Role extends AbstractEntity {
 		this.users = users;
 	}
 
-	public String getRole() {
-		return role;
+	public RoleName getRoleName() {
+		return roleName;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleName(RoleName roleName) {
+		this.roleName = roleName;
+	}
+	
+	@RolesValue
+	public String getRoleNameCode() {
+		return roleName.code;
 	}
 }

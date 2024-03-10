@@ -66,30 +66,13 @@
                     <p:column selectionMode="multiple" exportable="false"></p:column>
 
                     <p:column headerText="Username" sortBy="#{user.username}" filterBy="#{user.username}">
-                        <h:outputText value="#{user.code}"/>
+                        <h:outputText value="#{user.username}"/>
                     </p:column>
-                    <p:column headerText="Name" sortBy="#{user.name}" filterBy="#{user.name}">
-                        <h:outputText value="#{user.name}"/>
+                    <p:column headerText="Name" sortBy="#{user.fullname}" filterBy="#{user.fullname}">
+                        <h:outputText value="#{user.fullname}"/>
                     </p:column>
-                    <p:column headerText="Image" exportable="false">
-                        <p:graphicImage name="images/user/#{user.image}" library="demo"
-                                        styleClass="user-image"/>
-                    </p:column>
-                    <p:column headerText="Price" sortBy="#{user.price}">
-                        <h:outputText value="#{user.price}" style="font-weight: 700">
-                            <f:convertNumber currencySymbol="$" type="currency"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="Category" sortBy="#{user.category}" filterBy="#{user.category}">
-                        <h:outputText value="#{user.category}"/>
-                    </p:column>
-                    <p:column headerText="Reviews" sortBy="#{user.rating}">
-                        <p:rating value="#{user.rating}" readonly="true"/>
-                    </p:column>
-                    <p:column headerText="Status" sortBy="#{user.inventoryStatus}"
-                              filterBy="#{user.inventoryStatus}">
-                        <h:outputText styleClass="user-badge status-#{user.inventoryStatus.statusName}"
-                                      value="#{user.inventoryStatus.text}"/>
+                    <p:column headerText="E-mail" sortBy="#{user.email}" filterBy="#{user.email}">
+                        <h:outputText value="#{user.email}"/>
                     </p:column>
                     <p:column exportable="false">
                         <p:commandButton icon="pi pi-pencil" update=":form:manage-user-content"
@@ -110,39 +93,19 @@
                           widgetVar="manageUserDialog" responsive="true">
                     <p:outputPanel id="manage-user-content" class="ui-fluid">
                         <p:outputPanel rendered="#{not empty userView.selectedUser}">
-                            <p:graphicImage name="images/user/#{userView.selectedUser.image}" library="demo"
-                                            styleClass="user-image"
-                                            rendered="#{not empty userView.selectedUser.image}"/>
+
                             <div class="field">
-                                <p:outputLabel for="name">Name</p:outputLabel>
-                                <p:inputText id="name" value="#{userView.selectedUser.name}" required="true"/>
+                                <p:outputLabel for="name">Username</p:outputLabel>
+                                <p:inputText id="name" value="#{userView.selectedUser.username}" required="true"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="description">Description</p:outputLabel>
-                                <p:inputTextarea id="description" value="#{userView.selectedUser.description}"/>
+                                <p:outputLabel for="fullname">Fullname</p:outputLabel>
+                                <p:inputTextarea id="fullname" value="#{userView.selectedUser.fullname}"/>
                             </div>
                             <div class="field">
-                                <p:outputLabel for="category">Category</p:outputLabel>
-                                <p:selectOneRadio id="category" value="#{userView.selectedUser.category}"
-                                                  layout="responsive" columns="2">
-                                    <f:selectItem itemLabel="Accessories" itemValue="Accessories"/>
-                                    <f:selectItem itemLabel="Clothing" itemValue="Clothing"/>
-                                    <f:selectItem itemLabel="Electronics" itemValue="Electronics"/>
-                                    <f:selectItem itemLabel="Fitness" itemValue="Fitness"/>
-                                </p:selectOneRadio>
-                            </div>
-                            <div class="formgrid grid">
-                                <div class="field col">
-                                    <p:outputLabel for="price">Price</p:outputLabel>
-                                    <p:inputNumber id="price" value="#{userView.selectedUser.price}"
-                                                   symbol=" USD" symbolPosition="s"
-                                                   decimalSeparator="." thousandSeparator=","/>
-                                </div>
-                                <div class="field col">
-                                    <p:outputLabel for="quantity">Quantity</p:outputLabel>
-                                    <p:spinner id="quantity" min="0" value="#{userView.selectedUser.quantity}"/>
-                                </div>
-                            </div>
+                                <p:outputLabel for="email">E-Mail</p:outputLabel>
+                                <p:inputTextarea id="email" value="#{userView.selectedUser.email}"/>
+                            </div>                          
                         </p:outputPanel>
                     </p:outputPanel>
 

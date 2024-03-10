@@ -40,9 +40,6 @@ public class AuthorizationFilter implements Filter {
 			throws IOException, ServletException {
 		final HttpServletRequest servletRequest = (HttpServletRequest) request;
 		final String requestURI = removeLeadingSlash(servletRequest.getRequestURI());
-//		final boolean userIsAnonymous = identity == null || identity.getIdentity().getPrincipal() == null
-//				|| identity.getIdentity().getPrincipal().getName() == null
-//				|| identity.getIdentity().getPrincipal().getName().isEmpty();
 		final boolean userIsAnonymous = identityService.isAnonymousUser();
 
 		if (userIsAnonymous && (loginPage != null && !removeLeadingSlash(loginPage).equals(requestURI)

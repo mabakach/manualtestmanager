@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import ch.mabaka.manualtestmanager.persistence.entities.authorization.RoleName;
 import ch.mabaka.manualtestmanager.service.IdentityService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -49,12 +50,19 @@ public class AppMenu {
 		menuCategories = new ArrayList<>();
 		menuItems = new ArrayList<>();
 
+		if (identityService.getLoggedInUserRoles().contains(RoleName.ADMIN.code)) {
+			List<MenuItem> adminMenu = new ArrayList<>();
+			adminMenu.add(new MenuItem("Users", "/view/administration/users/users"));
+
+			menuCategories.add(new MenuCategory("Adminstration", adminMenu));
+		}
+		
 		if (!identityService.isAnonymousUser()) {
 			List<MenuItem> basicsMenu = new ArrayList<>();
 			basicsMenu.add(new MenuItem("Introduction", "/view/ajax/basic"));
 
 			menuCategories.add(new MenuCategory("Basics", basicsMenu));
-		} else {
+		}  else {
 //			List<MenuItem> loginMenu = new ArrayList<>();
 //			loginMenu.add(new MenuItem("Login", "/view/login/login"));
 //

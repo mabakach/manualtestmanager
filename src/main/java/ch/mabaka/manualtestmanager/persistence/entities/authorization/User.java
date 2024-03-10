@@ -14,6 +14,7 @@ import io.quarkus.security.jpa.Username;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 
 /**
  * 
@@ -28,6 +29,11 @@ public class User extends AbstractEntity {
 	
 	@Password
 	private String password;
+	
+	private String fullname;
+	
+	@Email(message = "Email invalid")
+	private String email;
 
 	@ManyToMany
     @Roles
@@ -50,6 +56,23 @@ public class User extends AbstractEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+
+	public String getFullname() {
+		return fullname;
+	}
+
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String eMail) {
+		this.email = eMail;
 	}
 
 	public List<Role> getRoles() {

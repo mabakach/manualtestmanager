@@ -46,18 +46,16 @@ public class UserView implements Serializable {
 	
 	@Inject
     UserService userService;
-    private List<User> users;
     private User selectedUser;
     private List<User> selectedUsers;
 
     @PostConstruct
     public void init() {
-        users = userService.findAll();
         selectedUsers = new ArrayList<>();
     }
 
     public List<User> getUsers() {
-        return users;
+        return userService.findAll();
     }
 
     public User getSelectedUser() {
@@ -84,7 +82,6 @@ public class UserView implements Serializable {
         
     	if (selectedUser.getSysid() == null) {
     		selectedUser = userService.save(selectedUser);
-            users.add(selectedUser);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Added"));
         } else {
         	selectedUser = userService.save(selectedUser);
@@ -95,9 +92,8 @@ public class UserView implements Serializable {
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
-    public void deleteProduct() {
+    public void deleteUser() {
     	userService.delete(selectedUser);
-        users.remove(selectedUser);
         selectedUser = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Removed"));
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
@@ -116,9 +112,8 @@ public class UserView implements Serializable {
         return selectedUsers != null && !selectedUsers.isEmpty();
     }
 
-    public void deleteSelectedProducts() {
+    public void deleteSelectedUsers() {
     	selectedUsers.forEach(u -> userService.delete(u));
-        users.removeAll(selectedUsers);
         selectedUsers = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Users Removed"));
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");

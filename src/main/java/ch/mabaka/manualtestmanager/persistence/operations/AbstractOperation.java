@@ -27,13 +27,15 @@ public abstract class AbstractOperation<T extends AbstractEntity> {
 	}
 
 	public T save(T entity) {
+		if (entity.getSysid() != null) {
+			entity = em.merge(entity);
+		}
 		if (entity.getSysInsertedBy() == null || entity.getSysInsertedBy().isBlank()) {
 			entity.setSysInsertedBy(identityService.getLoggedInUserName());
 		}
 		entity.setSysUpdatedBy(identityService.getLoggedInUserName());
-
 		em.persist(entity);
-		em.refresh(entity);
+//		em.refresh(entity);
 		return entity;
 	}
 
@@ -48,6 +50,9 @@ public abstract class AbstractOperation<T extends AbstractEntity> {
 	}
 
 	public void delete(T entity) {
+		if (entity.getSysid() != null) {
+			entity = em.merge(entity);
+		}
 		em.remove(entity);
 	}
 
