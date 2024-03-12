@@ -35,7 +35,6 @@ public abstract class AbstractOperation<T extends AbstractEntity> {
 		}
 		entity.setSysUpdatedBy(identityService.getLoggedInUserName());
 		em.persist(entity);
-//		em.refresh(entity);
 		return entity;
 	}
 

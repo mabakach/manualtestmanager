@@ -88,15 +88,15 @@ public class UserView implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Updated"));
         }
 
-        PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+        //PrimeFaces.current().executeScript("PF('manageUserDialog').hide()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-users");
     }
 
     public void deleteUser() {
     	userService.delete(selectedUser);
         selectedUser = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Removed"));
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-users");
     }
 
     public String getDeleteButtonMessage() {
@@ -116,8 +116,8 @@ public class UserView implements Serializable {
     	selectedUsers.forEach(u -> userService.delete(u));
         selectedUsers = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Users Removed"));
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
-        PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
+        PrimeFaces.current().ajax().update("form:messages", "form:dt-users");
+        PrimeFaces.current().executeScript("PF('dtUsers').clearFilters()");
     }
 
 }
