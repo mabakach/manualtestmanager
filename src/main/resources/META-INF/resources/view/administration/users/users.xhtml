@@ -103,6 +103,14 @@
                                 <p:inputTextarea id="fullname" value="#{userView.selectedUser.fullname}"/>
                             </div>
                             <div class="field">
+                                <p:outputLabel for="password1">Password</p:outputLabel>
+                                <p:password id="password1" match="password2" value="#{userView.selectedUser.password}" toggleMask="true" redisplay="true"/>
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="password2">Password</p:outputLabel>
+                                <p:password id="password2" value="#{userView.selectedUser.password}" toggleMask="true" redisplay="true"/>
+                            </div>
+                            <div class="field">
                                 <p:outputLabel for="email">E-Mail</p:outputLabel>
                                 <p:inputTextarea id="email" value="#{userView.selectedUser.email}"/>
                             </div>                          
@@ -116,6 +124,7 @@
                                          update="manage-user-content" process="manage-user-content @this" onsuccess="PF('manageUserDialog').hide()"/>
                         <p:commandButton value="Close" icon="pi pi-times" onclick="PF('manageUserDialog').hide()"
                                          class="ui-button-secondary"/>
+
                     </f:facet>
                 </p:dialog>
 

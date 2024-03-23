@@ -31,6 +31,7 @@ import org.primefaces.PrimeFaces;
 
 import ch.mabaka.manualtestmanager.persistence.entities.authorization.User;
 import ch.mabaka.manualtestmanager.service.authorization.UserService;
+import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -79,11 +80,17 @@ public class UserView implements Serializable {
     }
 
     public void saveUser() {
-        
     	if (selectedUser.getSysid() == null) {
+    		final String password = selectedUser.getPassword() != null ? selectedUser.getPassword() : "";
+			selectedUser.setPassword(BcryptUtil.bcryptHash(password));
     		selectedUser = userService.save(selectedUser);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Added"));
         } else {
+        	final User unmodifiedUser = userService.findById(selectedUser.getSysid());
+        	if (unmodifiedUser.getPassword() == null || !unmodifiedUser.getPassword().equals(selectedUser.getPassword())) {
+        		final String newPassword = selectedUser.getPassword() != null ? selectedUser.getPassword() : "";
+        		selectedUser.setPassword(BcryptUtil.bcryptHash(newPassword));
+        	}
         	selectedUser = userService.save(selectedUser);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Updated"));
         }
