@@ -32,7 +32,7 @@ public class User extends AbstractEntity {
 	
 	private String fullname;
 	
-	@Email(message = "Email invalid")
+	@Email(message = "e-mail invalid")
 	private String email;
 
 	@ManyToMany

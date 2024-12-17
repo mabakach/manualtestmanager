@@ -32,7 +32,9 @@ import java.util.Objects;
 @RegisterForReflection
 public class Country implements Serializable, Comparable<Country> {
 
-    private int id;
+	private static final long serialVersionUID = 1L;
+	
+	private int id;
     private String name;
     private String code;
     private Locale locale;

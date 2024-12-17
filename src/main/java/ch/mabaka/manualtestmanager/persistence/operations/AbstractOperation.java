@@ -11,6 +11,8 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 public abstract class AbstractOperation<T extends AbstractEntity> {
 
@@ -26,6 +28,7 @@ public abstract class AbstractOperation<T extends AbstractEntity> {
 		return (T) em.find(getMyType(), sysid);
 	}
 
+	@Transactional(value = TxType.REQUIRED)
 	public T save(T entity) {
 		if (entity.getSysid() != null) {
 			entity = em.merge(entity);
@@ -37,7 +40,16 @@ public abstract class AbstractOperation<T extends AbstractEntity> {
 		em.persist(entity);
 		return entity;
 	}
+	
+	@Transactional(value = TxType.REQUIRED)
+	public T saveAndDetach(final T entity) {
+		T savedEntity = save(entity);
+		em.flush();
+		em.detach(savedEntity);
+		return savedEntity;
+	}
 
+	@Transactional(value = TxType.SUPPORTS)
 	public List<T> findAll() {
 		final CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<T> cq = cb.createQuery(getMyType());
@@ -47,12 +59,19 @@ public abstract class AbstractOperation<T extends AbstractEntity> {
 		TypedQuery<T> allQuery = em.createQuery(all);
 		return allQuery.getResultList();
 	}
+	
+	@Transactional(value = TxType.SUPPORTS)
+	public List<T> findAllAndDetach() {
+		List<T> result = findAll();
+		result.forEach(e -> em.detach(e));
+		return result;
+	}
 
+	@Transactional(value = TxType.REQUIRED)
 	public void delete(T entity) {
 		if (entity.getSysid() != null) {
 			entity = em.merge(entity);
 		}
 		em.remove(entity);
 	}
-
 }

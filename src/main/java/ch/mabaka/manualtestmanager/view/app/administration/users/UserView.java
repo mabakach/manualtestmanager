@@ -56,7 +56,7 @@ public class UserView implements Serializable {
     }
 
     public List<User> getUsers() {
-        return userService.findAll();
+        return userService.getAllUsersDetachedWithoutPassword();
     }
 
     public User getSelectedUser() {
@@ -83,15 +83,20 @@ public class UserView implements Serializable {
     	if (selectedUser.getSysid() == null) {
     		final String password = selectedUser.getPassword() != null ? selectedUser.getPassword() : "";
 			selectedUser.setPassword(BcryptUtil.bcryptHash(password));
-    		selectedUser = userService.save(selectedUser);
+			selectedUser = userService.saveAndDetach(selectedUser);
+        	selectedUser.setPassword(null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Added"));
         } else {
-        	final User unmodifiedUser = userService.findById(selectedUser.getSysid());
-        	if (unmodifiedUser.getPassword() == null || !unmodifiedUser.getPassword().equals(selectedUser.getPassword())) {
+        	if (selectedUser.getPassword() != null) {
         		final String newPassword = selectedUser.getPassword() != null ? selectedUser.getPassword() : "";
         		selectedUser.setPassword(BcryptUtil.bcryptHash(newPassword));
+        	} else {
+        		// get password from DB before updating
+        		final User persistentUser = userService.findById(selectedUser.getSysid());
+        		selectedUser.setPassword(persistentUser.getPassword());
         	}
-        	selectedUser = userService.save(selectedUser);
+        	selectedUser = userService.saveAndDetach(selectedUser);
+        	selectedUser.setPassword(null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("User Updated"));
         }
 
